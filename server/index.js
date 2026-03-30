@@ -14,3 +14,6 @@ const routes = [
     stops: ["Electronic City", "Silk Board", "HSR", "Koramangala"]
   }
 ];
+app.get('/home',(req,res)=>{
+  res.send("Welcome to the bus route api");
+})
