@@ -1,7 +1,9 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
 
 app.use(express.json());
+app.use(cors());
 
 
 const routes = [
@@ -16,9 +18,12 @@ const routes = [
 ];
 
 function findBuses(source, destination){
+  source = source.trim().toLowerCase();
+  destination = destination.trim().toLowerCase();
   return routes.filter(route =>{
-    const s = route.stops.indexOf(source);
-    const d = route.stops.indexOf(destination);
+    const stops = route.stops.map(stop => stop.trim().toLowerCase());
+    const s = stops.indexOf(source);
+    const d = stops.indexOf(destination);
     return s!==-1 && d!==-1 && s<d;
   });
 }

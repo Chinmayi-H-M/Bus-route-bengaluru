@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/Chinmayi-H-M/Bus-route-bengaluru#readme",
   "dependencies": {
-    "express": "^5.2.1"
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "nodemon": "^3.1.14"
   }
 }
