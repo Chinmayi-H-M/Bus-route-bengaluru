@@ -14,8 +14,8 @@ function App() {
 
   try {
     const res = await axios.post("http://127.0.0.1:3000/find-route", {
-      source: source.trim(),
-      destination: destination.trim()
+      source: source.trim().toLowerCase(),
+      destination: destination.trim().toLowerCase()
     });
 
     console.log("Response:", res.data); // debug
