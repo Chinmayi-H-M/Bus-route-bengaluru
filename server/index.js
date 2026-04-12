@@ -14,6 +14,14 @@ const routes = [
   {
     bus_no: "201",
     stops: ["Electronic City", "Silk Board", "HSR", "Koramangala"]
+  },
+  {
+    bus_no: "300",
+    stops: ["Majestic", "Rajajinagar", "Yeshwanthpur"]
+  },
+  {
+    bus_no: "401",
+    stops: ["BTM", "HSR", "Bellandur", "Marathahalli"]
   }
 ];
 
