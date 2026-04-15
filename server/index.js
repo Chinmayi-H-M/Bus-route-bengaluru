@@ -40,17 +40,7 @@ app.get('/home',(req,res)=>{
   res.send("Welcome to the bus route api");
 })
 
-app.post("/find-route", (req, res) => {
-  const { source, destination } = req.body;
-
-  const direct = findBuses(source, destination);
-  const transfer = findTransferRoutes(source, destination);
-
-  res.json({
-    direct,
-    transfer
-  });
-});
+a
 
 app.listen(3000, ()=>{
   console.log("Server running on port 3000");
