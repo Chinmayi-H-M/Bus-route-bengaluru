@@ -1,31 +1,17 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
+const connectDB = require('./config/db');
+const Route = require('./models/Route');
+const { findTransferRoutes } = require('./utils/routeLogic');
 
 app.use(express.json());
 app.use(cors());
 
+// Connect to MongoDB
+connectDB();
 
-const routes = [
-  {
-    bus_no: "500A",
-    stops: ["Silk Board", "BTM", "Jayanagar", "Majestic"]
-  },
-  {
-    bus_no: "201",
-    stops: ["Electronic City", "Silk Board", "HSR", "Koramangala"]
-  },
-  {
-    bus_no: "300",
-    stops: ["Majestic", "Rajajinagar", "Yeshwanthpur"]
-  },
-  {
-    bus_no: "401",
-    stops: ["BTM", "HSR", "Bellandur", "Marathahalli"]
-  }
-];
-
-function findBuses(source, destination){
+function findBuses(source, destination, routes){
   source = source.trim().toLowerCase();
   destination = destination.trim().toLowerCase();
   return routes.filter(route =>{
@@ -40,16 +26,24 @@ app.get('/home',(req,res)=>{
   res.send("Welcome to the bus route api");
 })
 
-app.post("/find-route", (req, res) => {
-  const { source, destination } = req.body;
+app.post("/find-route", async (req, res) => {
+  try {
+    const { source, destination } = req.body;
 
-  const direct = findBuses(source, destination);
-  const transfer = findTransferRoutes(source, destination);
+    // Fetch dynamic routes from MongoDB
+    const routes = await Route.find({});
 
-  res.json({
-    direct,
-    transfer
-  });
+    const direct = findBuses(source, destination, routes);
+    const transfer = findTransferRoutes(source, destination, routes);
+
+    res.json({
+      direct,
+      transfer
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
+  }
 });
 
 app.listen(3000, ()=>{

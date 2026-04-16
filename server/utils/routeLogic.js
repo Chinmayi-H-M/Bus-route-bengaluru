@@ -1,4 +1,4 @@
-function findTransferRoutes(source, destination) {
+function findTransferRoutes(source, destination, routes) {
   source = source.trim().toLowerCase();
   destination = destination.trim().toLowerCase();
 
@@ -28,3 +28,5 @@ function findTransferRoutes(source, destination) {
 
   return result;
 }
+
+module.exports = { findTransferRoutes };
